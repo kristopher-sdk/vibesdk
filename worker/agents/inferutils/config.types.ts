@@ -28,6 +28,7 @@ export enum AIModels {
 	CLAUDE_3_7_SONNET_20250219 = 'anthropic/claude-3-7-sonnet-20250219',
 	CLAUDE_4_OPUS = 'anthropic/claude-opus-4-20250514',
 	CLAUDE_4_SONNET = 'anthropic/claude-sonnet-4-20250514',
+	CLAUDE_4_5_SONNET = 'anthropic/claude-sonnet-4-5-latest',
 
 	OPENAI_O3 = 'openai/o3',
 	OPENAI_O4_MINI = 'openai/o4-mini',

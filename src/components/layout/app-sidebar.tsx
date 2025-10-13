@@ -11,6 +11,7 @@ import {
 	Bookmark,
 	// LayoutGrid,
 	Compass,
+	Network,
 } from 'lucide-react';
 import './sidebar-overrides.css';
 import { useRecentApps, useFavoriteApps, useApps } from '@/hooks/use-apps';
@@ -570,6 +571,20 @@ export function AppSidebar() {
 				<SidebarFooter>
 					{user && (
 						<SidebarMenu>
+							<SidebarMenuItem>
+								<SidebarMenuButton
+									onClick={() => navigate('/orchestrator')}
+									tooltip="Orchestrator"
+									className="group hover:opacity-80 hover:cursor-pointer hover:bg-bg-1/50 transition-all duration-200"
+								>
+									<Network className="h-6 w-6 text-text-primary/60 group-hover:text-primary/80 transition-colors" />
+									{!isCollapsed && (
+										<span className="text-text-primary/80 font-medium group-hover:text-primary transition-colors">
+											Orchestrator
+										</span>
+									)}
+								</SidebarMenuButton>
+							</SidebarMenuItem>
 							<SidebarMenuItem>
 								<SidebarMenuButton
 									id="discover-link"

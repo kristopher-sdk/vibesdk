@@ -36,14 +36,14 @@ Use these configs instead for better performance, less bugs and costs:
         reasoning_effort: 'low',
         max_tokens: 32000,
         temperature: 1,
-        fallbackModel: AIModels.CLAUDE_4_SONNET,
+        fallbackModel: AIModels.CLAUDE_4_5_SONNET,
     },
     realtimeCodeFixer: {
         name: AIModels.OPENAI_5_MINI,
         reasoning_effort: 'low',
         max_tokens: 32000,
         temperature: 1,
-        fallbackModel: AIModels.CLAUDE_4_SONNET,
+        fallbackModel: AIModels.CLAUDE_4_5_SONNET,
     },
 
 For real time code fixer, here are some alternatives: 

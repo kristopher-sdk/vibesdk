@@ -1,6 +1,6 @@
-# 🧡 Cloudflare Vibe SDK
+# 🧡 Byte Platform
 
-> **An open source full-stack AI webapp generator** – Deploy your own instance of Cloudflare VibeSDK, an AI vibe coding platform that you can run and customize yourself.
+> **An open source full-stack AI webapp generator** – Deploy your own instance of Byte Platform, an AI vibe coding platform that you can run and customize yourself.
 
 <div align="center">
 
@@ -9,9 +9,9 @@
 
 **[build.cloudflare.dev](https://build.cloudflare.dev)**
 
-*Explore VibeSDK Build before deploying your own stack.*
+*Explore Byte Platform before deploying your own stack.*
 
-[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/cloudflare/vibesdk)
+[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/cloudflare/byte-platform)
 
 **👆 Click to deploy your own instance!**
 
@@ -21,13 +21,13 @@
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=cloudflare/vibesdk&type=Date)](https://www.star-history.com/#cloudflare/vibesdk&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=cloudflare/byte-platform&type=Date)](https://www.star-history.com/#cloudflare/byte-platform&Date)
 
 ---
 
-## ✨ What is Cloudflare VibeSDK?
+## ✨ What is Byte Platform?
 
-Cloudflare VibeSDK is an open source AI vibe coding platform built on Cloudflare's developer platform. If you're building an AI-powered platform for building applications, this is a great example that you can deploy and customize to build the whole platform yourself. Once the platform is deployed, users can say what they want to build in natural language, and the AI agent will create and deploy the application. 
+Byte Platform is an open source AI vibe coding platform built on Cloudflare's developer platform. If you're building an AI-powered platform for building applications, this is a great example that you can deploy and customize to build the whole platform yourself. Once the platform is deployed, users can say what they want to build in natural language, and the AI agent will create and deploy the application.
 
 **🌐 [Experience it live at build.cloudflare.dev](https://build.cloudflare.dev)** – Try it out before deploying your own instance!
 
@@ -55,7 +55,7 @@ Let your customers extend your product's functionality without learning your API
 
 ### 🏗️ Built on Cloudflare's Platform
 
-Cloudflare VibeSDK Build utilizes the full Cloudflare developer ecosystem:
+Byte Platform utilizes the full Cloudflare developer ecosystem:
 
 - **Frontend**: React + Vite with modern UI components
 - **Backend**: Workers with Durable Objects for AI agents  
@@ -77,9 +77,9 @@ Before clicking "Deploy to Cloudflare", have these ready:
 ### 🔑 Required API Key
 - **Google Gemini API Key** - Get from [ai.google.dev](https://ai.google.dev)
 
-Once you click "Deploy to Cloudflare", you'll be taken to your Cloudflare dashboard where you can configure your VibeSDK deployment with these variables. 
+Once you click "Deploy to Cloudflare", you'll be taken to your Cloudflare dashboard where you can configure your Byte Platform deployment with these variables.
 
-[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/cloudflare/vibesdk)
+[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/cloudflare/byte-platform)
 
 ### 🔑 What you'll configure
 
@@ -104,7 +104,7 @@ Adjust the placeholder `abc`/`xyz` parts to match your domain. DNS propagation c
 
 ### 🏗️ Sandbox Instance Configuration (Optional)
 
-VibeSDK uses Cloudflare Containers to run generated applications in isolated environments. You can configure the container performance tier based on your needs and Cloudflare plan.
+Byte Platform uses Cloudflare Containers to run generated applications in isolated environments. You can configure the container performance tier based on your needs and Cloudflare plan.
 
 #### Available Instance Types
 
@@ -175,7 +175,7 @@ OAuth configuration is **not** shown on the initial deploy page. If you want use
 **GitHub OAuth Setup:**
 1. GitHub → **Settings** → **Developer settings** → **OAuth Apps**
 2. Click **New OAuth App**
-3. Application name: `Cloudflare VibeSDK`
+3. Application name: `Byte Platform`
 4. Homepage URL: `https://your-worker-name.workers.dev`
 5. Authorization callback URL: `https://your-worker-name.workers.dev/api/auth/callback/github`
 6. Add to **both** `.dev.vars` (for local development) and `.prod.vars` (for deployment):
@@ -185,7 +185,7 @@ OAuth configuration is **not** shown on the initial deploy page. If you want use
    ```
 
 **GitHub Export OAuth Setup:**
-1. Create a separate GitHub OAuth app (e.g., `VibeSDK Export`)—do not reuse the login app above.
+1. Create a separate GitHub OAuth app (e.g., `Byte Platform Export`)—do not reuse the login app above.
 2. Authorization callback URL: `https://your-worker-name.workers.dev/api/github-exporter/callback` (or your custom domain equivalent).
 3. Add to **both** `.dev.vars` and `.prod.vars`:
    ```bash
@@ -279,7 +279,7 @@ export default {
 ```
 
 ### Iteration-based Code Generation
-Cloudflare VibeSDK generates apps in intelligent phases:
+Byte Platform generates apps in intelligent phases:
 
 1. **Planning Phase**: Analyzes requirements, creates file structure
 2. **Foundation Phase**: Generates package.json, basic setup files  
@@ -290,7 +290,7 @@ Cloudflare VibeSDK generates apps in intelligent phases:
 
 ---
 
-## After Deployment
+## 📦 After Deployment
 
 - The "Deploy to Cloudflare" button provisions the worker and also creates a GitHub repository in your account. Clone that repository to work locally.
 - Pushes to the `main` branch trigger automatic deployments; CI/CD is already wired up for you.
@@ -304,12 +304,12 @@ DNS updates made during setup, including the wildcard CNAME record described abo
 
 ### Quick Setup
 
-You can run VibeSDK locally by following these steps:
+You can run Byte Platform locally by following these steps:
 
 ```bash
 # Clone the repository
-git clone https://github.com/cloudflare/vibesdk.git
-cd vibesdk
+git clone https://github.com/cloudflare/byte-platform.git
+cd byte-platform
 
 # Install dependencies
 npm install  # or: bun install, yarn install, pnpm install
@@ -336,7 +336,7 @@ After setup, start the development server:
 bun run dev
 ```
 
-Visit `http://localhost:5173` to access VibSDK locally.
+Visit `http://localhost:5173` to access Byte Platform locally.
 
 ### Production Deployment
 
@@ -377,7 +377,7 @@ Example: If `MAX_SANDBOX_INSTANCES` is set both as an environment variable (`exp
 
 ## 🔒 Security & Privacy
 
-Cloudflare VibeSDK implements enterprise-grade security:
+Byte Platform implements enterprise-grade security:
 
 - 🔐 **Encrypted Secrets**: All API keys stored with Cloudflare encryption
 - 🏰 **Sandboxed Execution**: Generated apps run in completely isolated containers
@@ -417,7 +417,7 @@ Cloudflare VibeSDK implements enterprise-grade security:
 - **With AI Gateway Token**: The deployment script should automatically create the gateway. Check that your token has Read, Edit, and **Run** permissions.
 - **Without AI Gateway Token**: You must manually create an AI Gateway before deployment:
   1. Go to [AI Gateway Dashboard](https://dash.cloudflare.com/ai/ai-gateway)
-  2. Create gateway named `vibesdk-gateway` (or your custom name)
+  2. Create gateway named `byte-platform-gateway` (or your custom name)
   3. Enable authentication and create a token with **Run** permissions
 
 **🏗️ "Container Instance Type Issues"**
@@ -436,7 +436,7 @@ Cloudflare VibeSDK implements enterprise-grade security:
 
 ## 🤝 Contributing
 
-Want to contribute to Cloudflare VibeSDK? Here's how:
+Want to contribute to Byte Platform? Here's how:
 
 1. **🍴 Fork** via the Deploy button (creates your own instance!)
 2. **💻 Develop** new features or improvements  
@@ -457,7 +457,7 @@ Want to contribute to Cloudflare VibeSDK? Here's how:
 ### 💬 **Community**  
 - [Discord](https://discord.gg/cloudflaredev) - Real-time chat and support
 - [Community Forum](https://community.cloudflare.com/) - Technical discussions
-- [GitHub Discussions](https://github.com/your-org/cloudflare-vibecoding-starter-kit/discussions) - Feature requests and ideas
+- [GitHub Discussions](https://github.com/cloudflare/byte-platform/discussions) - Feature requests and ideas
 
 ### 🎓 **Learning Resources**
 - [Workers Learning Path](https://developers.cloudflare.com/learning-paths/workers/) - Master Workers development

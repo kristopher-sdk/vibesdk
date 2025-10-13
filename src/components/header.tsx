@@ -16,9 +16,10 @@ export function Header({
 		>
 			<h1 className="flex items-center gap-2 mx-4">
 				<Link to="/">
+					{/* TODO: Replace CloudflareLogo with BytePlatformLogo once designed */}
 					<CloudflareLogo
 						className="h-4 text-bg-bright-dim"
-						aria-label="Cloudflare v1"
+						aria-label="Byte Platform"
 					/>
 				</Link>
 			</h1>

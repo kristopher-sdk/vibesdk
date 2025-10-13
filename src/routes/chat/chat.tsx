@@ -8,7 +8,7 @@ import {
 } from 'react';
 import { ArrowRight, Image as ImageIcon } from 'react-feather';
 import { useParams, useSearchParams, useNavigate } from 'react-router';
-import { MonacoEditor } from '../../components/monaco-editor/monaco-editor';
+import { MonacoEditor } from '../../components/monaco-editor/monaco-editor-lazy';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Expand, Github, LoaderCircle, RefreshCw } from 'lucide-react';
 import { Blueprint } from './components/blueprint';

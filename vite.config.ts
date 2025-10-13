@@ -16,15 +16,60 @@ export default defineConfig({
 		force: true, // Force re-optimization on every start
 	},
 
-	// build: {
-	//     rollupOptions: {
-	//       output: {
-	//             advancedChunks: {
-	//                 groups: [{name: 'vendor', test: /node_modules/}]
-	//             }
-	//         }
-	//     }
-	// },
+	build: {
+		sourcemap: true,
+		rollupOptions: {
+			output: {
+				manualChunks(id) {
+					// Monaco Editor and its workers (largest dependency)
+					if (id.includes('monaco-editor')) {
+						return 'monaco-editor';
+					}
+					
+					// React core libraries
+					if (id.includes('node_modules/react') ||
+					    id.includes('node_modules/react-dom') ||
+					    id.includes('node_modules/react-router')) {
+						return 'react-vendor';
+					}
+					
+					// Radix UI components (large collection)
+					if (id.includes('@radix-ui')) {
+						return 'radix-ui';
+					}
+					
+					// Charts library (heavy visualization)
+					if (id.includes('recharts')) {
+						return 'recharts';
+					}
+					
+					// Markdown rendering
+					if (id.includes('react-markdown') ||
+					    id.includes('remark-gfm') ||
+					    id.includes('rehype-external-links')) {
+						return 'markdown';
+					}
+					
+					// Animation libraries
+					if (id.includes('framer-motion')) {
+						return 'animations';
+					}
+					
+					// Form handling
+					if (id.includes('react-hook-form') || id.includes('zod')) {
+						return 'forms';
+					}
+					
+					// Other heavy dependencies
+					if (id.includes('date-fns') ||
+					    id.includes('lucide-react') ||
+					    id.includes('html2canvas-pro')) {
+						return 'utilities';
+					}
+				},
+			},
+		},
+	},
 	plugins: [
 		react(),
 		svgr(),
@@ -82,8 +127,4 @@ export default defineConfig({
 
 	// Clear cache more aggressively
 	cacheDir: 'node_modules/.vite',
-
-	build: {
-		sourcemap: true,
-	},
 });

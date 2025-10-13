@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blue & Gray Color Scheme Preview</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            padding: 2rem;
+            background: #fbfbfc;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #0a0a0a;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            color: #0a0a0a;
+            margin: 2rem 0 1rem;
+            font-size: 1.5rem;
+        }
+
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .color-card {
+            border: 1px solid #e5e5e5;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            background: white;
+        }
+
+        .color-swatch {
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .color-info {
+            padding: 1rem;
+        }
+
+        .color-name {
+            font-weight: 600;
+            color: #0a0a0a;
+            margin-bottom: 0.25rem;
+        }
+
+        .color-hex {
+            font-family: monospace;
+            color: #171717;
+            font-size: 0.875rem;
+        }
+
+        /* Brand Colors */
+        .brand-heavy { background: #2563eb; }
+        .brand-primary { background: #3b82f6; }
+        .brand-subtle { background: #60a5fa; }
+
+        /* Gray Backgrounds */
+        .bg-1 { background: #e7e7e7; color: #0a0a0a; }
+        .bg-2 { background: #f6f6f6; color: #0a0a0a; }
+        .bg-3 { background: #fbfbfc; color: #0a0a0a; }
+        .bg-4 { background: #ffffff; color: #0a0a0a; border: 1px solid #e5e5e5; }
+
+        /* Demo Components */
+        .demo-section {
+            margin-top: 3rem;
+        }
+
+        .button-demo {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2563eb;
+        }
+
+        .btn-secondary {
+            background: #e7e7e7;
+            color: #0a0a0a;
+        }
+
+        .btn-secondary:hover {
+            background: #d1d1d1;
+        }
+
+        .card-demo {
+            background: white;
+            border: 1px solid #e5e5e5;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            background: #3b82f6;
+            color: white;
+            margin-right: 0.5rem;
+        }
+
+        .animation-demo {
+            margin-top: 1rem;
+            padding: 2rem;
+            background: white;
+            border: 2px solid #e5e5e5;
+            border-radius: 0.75rem;
+            animation: chat-edge-throb 1.6s ease-in-out infinite;
+        }
+
+        @keyframes chat-edge-throb {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.10),
+                            inset 0 0 0 1px rgba(37, 99, 235, 0.16);
+            }
+            50% {
+                box-shadow: 0 0 0 6px rgba(37, 99, 235, 0.08),
+                            inset 0 0 0 2px rgba(37, 99, 235, 0.22);
+            }
+        }
+
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .comparison-card {
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            border: 2px solid #e5e5e5;
+        }
+
+        .old-colors {
+            background: linear-gradient(135deg, #ff3d0010, #f6821f10);
+        }
+
+        .new-colors {
+            background: linear-gradient(135deg, #2563eb10, #60a5fa10);
+        }
+
+        .comparison-title {
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.125rem;
+        }
+
+        .old-accent {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: #ff3d00;
+            color: white;
+            border-radius: 0.5rem;
+            margin: 0.5rem 0.5rem 0.5rem 0;
+        }
+
+        .new-accent {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: #2563eb;
+            color: white;
+            border-radius: 0.5rem;
+            margin: 0.5rem 0.5rem 0.5rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 New Blue & Gray Color Scheme</h1>
+        <p style="color: #171717; margin-bottom: 2rem;">Preview of the updated color palette for the Vibe SDK application</p>
+
+        <div class="comparison">
+            <div class="comparison-card old-colors">
+                <div class="comparison-title" style="color: #ff3d00;">❌ Old Colors (Orange)</div>
+                <div class="old-accent">#ff3d00</div>
+                <div class="old-accent" style="background: #f6821f;">#f6821f</div>
+            </div>
+            <div class="comparison-card new-colors">
+                <div class="comparison-title" style="color: #2563eb;">✅ New Colors (Blue)</div>
+                <div class="new-accent">#2563eb</div>
+                <div class="new-accent" style="background: #3b82f6;">#3b82f6</div>
+                <div class="new-accent" style="background: #60a5fa;">#60a5fa</div>
+            </div>
+        </div>
+
+        <h2>Brand Colors (Blue)</h2>
+        <div class="color-grid">
+            <div class="color-card">
+                <div class="color-swatch brand-heavy">Blue 600</div>
+                <div class="color-info">
+                    <div class="color-name">Brand Heavy</div>
+                    <div class="color-hex">#2563eb</div>
+                </div>
+            </div>
+            <div class="color-card">
+                <div class="color-swatch brand-primary">Blue 500</div>
+                <div class="color-info">
+                    <div class="color-name">Brand Primary</div>
+                    <div class="color-hex">#3b82f6</div>
+                </div>
+            </div>
+            <div class="color-card">
+                <div class="color-swatch brand-subtle">Blue 400</div>
+                <div class="color-info">
+                    <div class="color-name">Brand Subtle</div>
+                    <div class="color-hex">#60a5fa</div>
+                </div>
+            </div>
+        </div>
+
+        <h2>Background Colors (Gray)</h2>
+        <div class="color-grid">
+            <div class="color-card">
+                <div class="color-swatch bg-1">BG 1</div>
+                <div class="color-info">
+                    <div class="color-name">Background 1</div>
+                    <div class="color-hex">#e7e7e7</div>
+                </div>
+            </div>
+            <div class="color-card">
+                <div class="color-swatch bg-2">BG 2</div>
+                <div class="color-info">
+                    <div class="color-name">Background 2</div>
+                    <div class="color-hex">#f6f6f6</div>
+                </div>
+            </div>
+            <div class="color-card">
+                <div class="color-swatch bg-3">BG 3</div>
+                <div class="color-info">
+                    <div class="color-name">Background 3</div>
+                    <div class="color-hex">#fbfbfc</div>
+                </div>
+            </div>
+            <div class="color-card">
+                <div class="color-swatch bg-4">BG 4</div>
+                <div class="color-info">
+                    <div class="color-name">Background 4</div>
+                    <div class="color-hex">#ffffff</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>UI Components Preview</h2>
+            
+            <div class="button-demo">
+                <button class="btn btn-primary">Primary Button</button>
+                <button class="btn btn-secondary">Secondary Button</button>
+            </div>
+
+            <div class="card-demo">
+                <h3 style="color: #0a0a0a; margin-bottom: 1rem;">Sample Card</h3>
+                <p style="color: #171717; margin-bottom: 1rem;">
+                    This card demonstrates the new blue and gray color scheme in action. 
+                    The accent colors use various shades of blue instead of orange.
+                </p>
+                <div>
+                    <span class="badge">Tag 1</span>
+                    <span class="badge" style="background: #60a5fa;">Tag 2</span>
+                    <span class="badge" style="background: #2563eb;">Tag 3</span>
+                </div>
+            </div>
+
+            <h2>Chat Animation (Blue Throb Effect)</h2>
+            <div class="animation-demo">
+                <p style="color: #0a0a0a; text-align: center; font-weight: 600;">
+                    This box shows the new blue throb animation used in the chat interface
+                </p>
+            </div>
+        </div>
+
+        <div style="margin-top: 3rem; padding: 1.5rem; background: #3b82f6; color: white; border-radius: 0.75rem;">
+            <h3 style="margin-bottom: 0.5rem;">Deployment Status</h3>
+            <p>✅ Colors updated in local code</p>
+            <p>⏳ Not yet deployed to production</p>
+            <p style="margin-top: 1rem;"><strong>Production URL:</strong> https://build.cloudflare.dev</p>
+        </div>
+    </div>
+</body>
+</html>

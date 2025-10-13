@@ -1,15 +1,19 @@
 import type { RouteObject } from 'react-router';
-import React from 'react';
+import React, { lazy } from 'react';
 
 import App from './App';
-import Home from './routes/home';
-import Chat from './routes/chat/chat';
-import Profile from './routes/profile';
-import Settings from './routes/settings/index';
-import AppsPage from './routes/apps';
-import AppView from './routes/app';
-import DiscoverPage from './routes/discover';
 import { ProtectedRoute } from './routes/protected-route';
+
+// Lazy load route components for better code splitting
+const Home = lazy(() => import('./routes/home'));
+const Chat = lazy(() => import('./routes/chat/chat'));
+const Profile = lazy(() => import('./routes/profile'));
+const Settings = lazy(() => import('./routes/settings/index'));
+const AppsPage = lazy(() => import('./routes/apps'));
+const AppView = lazy(() => import('./routes/app'));
+const DiscoverPage = lazy(() => import('./routes/discover'));
+const OrchestratorPage = lazy(() => import('./pages/Orchestrator/OrchestratorPage'));
+const ProjectDetail = lazy(() => import('./pages/Orchestrator/ProjectDetail'));
 
 const routes = [
 	{
@@ -43,6 +47,14 @@ const routes = [
 			{
 				path: 'discover',
 				Component: DiscoverPage,
+			},
+			{
+				path: 'orchestrator',
+				element: React.createElement(ProtectedRoute, { children: React.createElement(OrchestratorPage) }),
+			},
+			{
+				path: 'orchestrator/projects/:id',
+				element: React.createElement(ProtectedRoute, { children: React.createElement(ProjectDetail) }),
 			},
 		],
 	},

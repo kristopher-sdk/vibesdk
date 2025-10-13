@@ -10,6 +10,7 @@ import { setupGitHubExporterRoutes } from './githubExporterRoutes';
 import { setupCodegenRoutes } from './codegenRoutes';
 import { setupScreenshotRoutes } from './screenshotRoutes';
 import { setupSentryRoutes } from './sentryRoutes';
+import { setupOrchestratorRoutes } from './orchestratorRoutes';
 import { Hono } from "hono";
 import { AppEnv } from "../../types/appenv";
 import { setupStatusRoutes } from './statusRoutes';
@@ -58,4 +59,7 @@ export function setupRoutes(app: Hono<AppEnv>): void {
 
     // Screenshot serving routes (public)
     setupScreenshotRoutes(app);
+
+    // Orchestrator routes (Phase 2)
+    setupOrchestratorRoutes(app);
 }

@@ -1,3 +1,7 @@
+// TODO: Replace with Byte Platform logo
+// This CloudflareLogo is currently used as the platform branding logo in headers
+// but should be replaced with a dedicated Byte Platform logo component
+// Note: There's a separate Cloudflare SVG in assets/provider-logos/ for AI Gateway provider display
 export function CloudflareLogo(props: React.SVGProps<SVGSVGElement> & { color1?: string, color2?: string}) {
 	return (
 		<svg

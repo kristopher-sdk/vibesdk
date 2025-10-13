@@ -4,7 +4,7 @@
  */
  {
 	// "$schema": "node_modules/wrangler/config-schema.json",
-	"name": "vibesdk-production",
+	"name": "byte-platform-production",
 	"main": "worker/index.ts",
 	"compatibility_date": "2025-08-10",
 	"compatibility_flags": ["nodejs_compat"],
@@ -54,7 +54,7 @@
     "dispatch_namespaces": [
         {
             "binding": "DISPATCHER",
-            "namespace": "vibesdk-default-namespace",
+            "namespace": "byte-platform-namespace",
             "remote": true
         }
     ],
@@ -76,7 +76,7 @@
 	"d1_databases": [
 		{
 			"binding": "DB",
-			"database_name": "vibesdk-db",
+			"database_name": "byte-platform-db",
 			"database_id": "c4721a2b-b96a-428a-8b2a-b3d255b307e9",
 			"migrations_dir": "migrations",
 			"remote": true
@@ -88,25 +88,31 @@
 				"class_name": "CodeGeneratorAgent",
 				"name": "CodeGenObject"
 			},
-            {
-                "class_name": "UserAppSandboxService",
-                "name": "Sandbox"
-            },
-            {
-                "class_name": "DORateLimitStore",
-                "name": "DORateLimitStore"
-            }
+	           {
+	               "class_name": "UserAppSandboxService",
+	               "name": "Sandbox"
+	           },
+	           {
+	               "class_name": "DORateLimitStore",
+	               "name": "DORateLimitStore"
+	           },
+	           {
+	               "class_name": "OrchestratorWebSocket",
+	               "name": "OrchestratorWebSocket"
+	           }
 		]
 	},
     "r2_buckets": [
       {
         "binding": "TEMPLATES_BUCKET",
-        "bucket_name": "vibesdk-templates",
+        "bucket_name": "byte-platform-templates",
         "remote": true
       }
     ],
     "kv_namespaces": [
         {
+            // Legacy binding name - will be migrated to "BytePlatformStore" in future release
+            // Keeping current name to avoid breaking existing deployments
             "binding": "VibecoderStore",
             "id": "f066f3c2e4824981b48e8586c04db9c1",
             "remote": true
@@ -123,12 +129,18 @@
 			],
 			"tag": "v1"
 		},
-        {
-            "new_sqlite_classes": [
-                "DORateLimitStore"
-            ],
-            "tag": "v2"
-        }
+	       {
+	           "new_sqlite_classes": [
+	               "DORateLimitStore"
+	           ],
+	           "tag": "v2"
+	       },
+	       {
+	           "new_sqlite_classes": [
+	               "OrchestratorWebSocket"
+	           ],
+	           "tag": "v3"
+	       }
 	],
 	"routes": [
         {
@@ -142,11 +154,11 @@
         }
     ],
 	"vars": {
-        "TEMPLATES_REPOSITORY": "https://github.com/cloudflare/vibesdk-templates",
+        "TEMPLATES_REPOSITORY": "https://github.com/cloudflare/byte-platform-templates",
         "ALLOWED_EMAIL": "",
-        "DISPATCH_NAMESPACE": "vibesdk-default-namespace",
+        "DISPATCH_NAMESPACE": "byte-platform-namespace",
         "ENABLE_READ_REPLICAS": "true",
-        "CLOUDFLARE_AI_GATEWAY": "vibesdk-gateway",
+        "CLOUDFLARE_AI_GATEWAY": "byte-platform-gateway",
         "CUSTOM_DOMAIN": "",
         "MAX_SANDBOX_INSTANCES": "10",
         "SANDBOX_INSTANCE_TYPE": "standard-3"

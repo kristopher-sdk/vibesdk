@@ -44,6 +44,7 @@ declare namespace Cloudflare {
 		CodeGenObject: DurableObjectNamespace<import("./worker/index").CodeGeneratorAgent>;
 		Sandbox: DurableObjectNamespace<import("./worker/index").UserAppSandboxService>;
 		DORateLimitStore: DurableObjectNamespace<import("./worker/index").DORateLimitStore>;
+		OrchestratorWebSocket: DurableObjectNamespace<import("./worker/index").OrchestratorWebSocket>;
 		TEMPLATES_BUCKET: R2Bucket;
 		DB: D1Database;
 		DISPATCHER: DispatchNamespace;

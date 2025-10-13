@@ -23,7 +23,7 @@ import {
 	Trash2,
 	Github,
 } from 'lucide-react';
-import { MonacoEditor } from '@/components/monaco-editor/monaco-editor';
+import { MonacoEditor } from '@/components/monaco-editor/monaco-editor-lazy';
 import { getFileType } from '@/utils/string';
 import { Button } from '@/components/ui/button';
 import {

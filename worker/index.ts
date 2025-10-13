@@ -6,6 +6,7 @@ import { createApp } from './app';
 // import * as Sentry from '@sentry/cloudflare';
 // import { sentryOptions } from './observability/sentry';
 import { DORateLimitStore as BaseDORateLimitStore } from './services/rate-limit/DORateLimitStore';
+import { OrchestratorWebSocket as BaseOrchestratorWebSocket } from './services/orchestrator/OrchestratorWebSocket';
 import { getPreviewDomain } from './utils/urls';
 // Durable Object and Service exports
 export { UserAppSandboxService, DeployerService } from './services/sandbox/sandboxSdkClient';
@@ -14,6 +15,7 @@ export { UserAppSandboxService, DeployerService } from './services/sandbox/sandb
 // export const DORateLimitStore = Sentry.instrumentDurableObjectWithSentry(sentryOptions, BaseDORateLimitStore);
 export const CodeGeneratorAgent = SmartCodeGeneratorAgent;
 export const DORateLimitStore = BaseDORateLimitStore;
+export const OrchestratorWebSocket = BaseOrchestratorWebSocket;
 
 // Logger for the main application and handlers
 const logger = createLogger('App');

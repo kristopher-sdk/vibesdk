@@ -3,7 +3,7 @@
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project Overview
-This is an official Cloudflare product - a React+Vite frontend with Cloudflare Workers backend that features a Durable Object-based AI agent capable of building webapps phase-wise from user prompts.
+Byte Platform is a React+Vite frontend with Cloudflare Workers backend that features a Durable Object-based AI agent capable of building webapps phase-wise from user prompts.
 
 **Important Context:**
 - Core functionality: AI-powered webapp generation via Durable Objects
