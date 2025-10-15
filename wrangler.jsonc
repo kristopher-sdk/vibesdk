@@ -63,13 +63,9 @@
 			"class_name": "UserAppSandboxService",
 			"image": "./SandboxDockerfile",
             // Altering max_instances value will have no effect. Please use the MAX_SANDBOX_INSTANCES var instead.
-			"max_instances": 2900,
+			"max_instances": 10,
             // ATTENTION: Altering instance_type value will have no effect. Please use the SANDBOX_INSTANCE_TYPE var instead.
-            "instance_type": {
-                "vcpu": 4,
-                "memory_mib": 4096,
-                "disk_mb": 6144
-            },
+            "instance_type": "standard-3",
             "rollout_step_percentage": 100
 		}
 	],
@@ -77,7 +73,7 @@
 		{
 			"binding": "DB",
 			"database_name": "byte-platform-db",
-			"database_id": "c4721a2b-b96a-428a-8b2a-b3d255b307e9",
+			"database_id": "fbddd3b4-56cc-4751-8284-69cf33dfc51e",
 			"migrations_dir": "migrations",
 			"remote": true
 		}
@@ -114,7 +110,7 @@
             // Legacy binding name - will be migrated to "BytePlatformStore" in future release
             // Keeping current name to avoid breaking existing deployments
             "binding": "VibecoderStore",
-            "id": "f066f3c2e4824981b48e8586c04db9c1",
+            "id": "0a2a5a15418940da99221624abaf4603",
             "remote": true
         }
     ],
@@ -141,28 +137,14 @@
 	           ],
 	           "tag": "v3"
 	       }
-	],
-	"routes": [
-        {
-            "pattern": "build.cloudflare.dev",
-            "custom_domain": true
-        },
-        {
-            "pattern": "*build-preview.cloudflare.dev/*",
-            "custom_domain": false,
-            "zone_id": "db01fac4261b2604aacad8410443a3e2"
-        }
     ],
 	"vars": {
-        "TEMPLATES_REPOSITORY": "https://github.com/cloudflare/byte-platform-templates",
         "ALLOWED_EMAIL": "",
         "DISPATCH_NAMESPACE": "byte-platform-namespace",
         "ENABLE_READ_REPLICAS": "true",
         "CLOUDFLARE_AI_GATEWAY": "byte-platform-gateway",
-        "CUSTOM_DOMAIN": "",
-        "MAX_SANDBOX_INSTANCES": "10",
         "SANDBOX_INSTANCE_TYPE": "standard-3"
     },
-	"workers_dev": false,
-	"preview_urls": false
+	"workers_dev": true,
+	"preview_urls": true
 }

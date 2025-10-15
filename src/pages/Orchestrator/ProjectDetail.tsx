@@ -22,20 +22,20 @@ import {
   updateProject,
 } from '@/services/orchestratorApi';
 import { useOrchestratorWebSocket } from '@/hooks/useOrchestratorWebSocket';
-import type { ProjectWithRelations, TicketWithRelations, TicketStatus } from '../../shared/types/orchestrator';
+import type { ProjectWithRelations, TicketWithRelations } from '../../../shared/types/orchestrator';
+import { TicketStatus } from '../../../shared/types/orchestrator';
 import { motion } from 'framer-motion';
-import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
 
 const TICKET_STATUSES: TicketStatus[] = [
-  'pending',
-  'ready',
-  'assigned',
-  'in_progress',
-  'review',
-  'blocked',
-  'completed',
-  'cancelled',
+  TicketStatus.PENDING,
+  TicketStatus.READY,
+  TicketStatus.ASSIGNED,
+  TicketStatus.IN_PROGRESS,
+  TicketStatus.REVIEW,
+  TicketStatus.BLOCKED,
+  TicketStatus.COMPLETED,
+  TicketStatus.CANCELLED,
 ];
 
 export default function ProjectDetail() {

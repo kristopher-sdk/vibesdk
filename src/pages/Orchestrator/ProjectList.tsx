@@ -5,7 +5,8 @@ import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { RefreshCw, AlertCircle, FileText, Calendar, CheckCircle2 } from 'lucide-react';
 import { ProjectStatusBadge } from './ProjectStatusBadge';
-import type { Project, ProjectStatus } from '../../shared/types/orchestrator';
+import type { Project } from '../../../shared/types/orchestrator';
+import { ProjectStatus } from '../../../shared/types/orchestrator';
 import { formatDistanceToNow } from 'date-fns';
 import { cn } from '@/lib/utils';
 
@@ -19,11 +20,11 @@ interface ProjectListProps {
 
 const STATUS_FILTERS: { value: ProjectStatus | 'all'; label: string }[] = [
   { value: 'all', label: 'All' },
-  { value: 'analyzing', label: 'Analyzing' },
-  { value: 'review', label: 'Review' },
-  { value: 'approved', label: 'Approved' },
-  { value: 'in_progress', label: 'In Progress' },
-  { value: 'completed', label: 'Completed' },
+  { value: ProjectStatus.ANALYZING, label: 'Analyzing' },
+  { value: ProjectStatus.REVIEW, label: 'Review' },
+  { value: ProjectStatus.APPROVED, label: 'Approved' },
+  { value: ProjectStatus.IN_PROGRESS, label: 'In Progress' },
+  { value: ProjectStatus.COMPLETED, label: 'Completed' },
 ];
 
 export function ProjectList({

@@ -119,7 +119,7 @@ export class OrchestratorWebSocket extends DurableObject<Env> {
     /**
      * Handle WebSocket close events
      */
-    async webSocketClose(ws: WebSocket, code: number, reason: string, wasClean: boolean): Promise<void> {
+    async webSocketClose(ws: WebSocket, code: number, reason: string, _wasClean: boolean): Promise<void> {
         try {
             // Find and remove the connection
             let connectionId: string | null = null;
@@ -149,7 +149,7 @@ export class OrchestratorWebSocket extends DurableObject<Env> {
     /**
      * Handle WebSocket error events
      */
-    async webSocketError(ws: WebSocket, error: Error): Promise<void> {
+    async webSocketError(_ws: WebSocket, error: Error): Promise<void> {
         logger.error('WebSocket error', { error });
     }
 

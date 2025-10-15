@@ -28,10 +28,10 @@ import {
 } from 'lucide-react';
 import type {
   TicketWithRelations,
-  TicketStatus,
   AcceptanceCriterion,
   AffectedFile,
-} from '../../shared/types/orchestrator';
+} from '../../../shared/types/orchestrator';
+import { TicketStatus } from '../../../shared/types/orchestrator';
 import {
   assignTicket,
   updateTicket,
@@ -49,14 +49,14 @@ interface TicketDetailModalProps {
 }
 
 const STATUS_OPTIONS: { value: TicketStatus; label: string }[] = [
-  { value: 'pending', label: 'Pending' },
-  { value: 'ready', label: 'Ready' },
-  { value: 'assigned', label: 'Assigned' },
-  { value: 'in_progress', label: 'In Progress' },
-  { value: 'review', label: 'Review' },
-  { value: 'blocked', label: 'Blocked' },
-  { value: 'completed', label: 'Completed' },
-  { value: 'cancelled', label: 'Cancelled' },
+  { value: TicketStatus.PENDING, label: 'Pending' },
+  { value: TicketStatus.READY, label: 'Ready' },
+  { value: TicketStatus.ASSIGNED, label: 'Assigned' },
+  { value: TicketStatus.IN_PROGRESS, label: 'In Progress' },
+  { value: TicketStatus.REVIEW, label: 'Review' },
+  { value: TicketStatus.BLOCKED, label: 'Blocked' },
+  { value: TicketStatus.COMPLETED, label: 'Completed' },
+  { value: TicketStatus.CANCELLED, label: 'Cancelled' },
 ];
 
 export function TicketDetailModal({
@@ -99,8 +99,8 @@ export function TicketDetailModal({
   const handleCreateBranch = async () => {
     try {
       setCreatingBranch(true);
-      const result = await createGitHubBranch(ticket.id);
-      toast.success(`Branch created: ${result.branchName}`);
+      await createGitHubBranch(ticket.id);
+      toast.success('Branch created successfully');
       onUpdate();
     } catch (err) {
       toast.error(err instanceof Error ? err.message : 'Failed to create branch');
@@ -112,7 +112,7 @@ export function TicketDetailModal({
   const handleCreatePR = async () => {
     try {
       setCreatingPR(true);
-      const result = await createGitHubPR(ticket.id);
+      await createGitHubPR(ticket.id);
       toast.success('Pull request created');
       onUpdate();
     } catch (err) {

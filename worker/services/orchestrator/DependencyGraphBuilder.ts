@@ -6,9 +6,7 @@
 import { StructuredLogger } from '../../logger';
 import type {
     Ticket,
-    TicketDependency,
     TicketType,
-    TicketPriority,
 } from '../../../shared/types/orchestrator';
 
 // ========================================
@@ -276,7 +274,7 @@ export class DependencyGraphBuilder {
      */
     private addSetupDependencies(
         tickets: Ticket[],
-        nodes: Map<string, GraphNode>,
+        _nodes: Map<string, GraphNode>,
         edges: Map<string, Set<string>>
     ): void {
         const setupTicket = tickets.find(t => t.type === 'setup');
@@ -295,7 +293,7 @@ export class DependencyGraphBuilder {
      */
     private addFileDependencies(
         tickets: Ticket[],
-        nodes: Map<string, GraphNode>,
+        _nodes: Map<string, GraphNode>,
         edges: Map<string, Set<string>>
     ): void {
         // Build file modification map
@@ -335,7 +333,7 @@ export class DependencyGraphBuilder {
      */
     private addLogicalDependencies(
         tickets: Ticket[],
-        nodes: Map<string, GraphNode>,
+        _nodes: Map<string, GraphNode>,
         edges: Map<string, Set<string>>
     ): void {
         tickets.forEach(ticket => {

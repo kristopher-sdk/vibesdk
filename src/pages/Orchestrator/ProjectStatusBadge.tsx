@@ -1,6 +1,6 @@
 import { Badge } from '@/components/ui/badge';
 import { Loader2, Eye, CheckCircle, Play, Archive } from 'lucide-react';
-import type { ProjectStatus } from '../../shared/types/orchestrator';
+import type { ProjectStatus } from '../../../shared/types/orchestrator';
 import { cn } from '@/lib/utils';
 
 interface ProjectStatusBadgeProps {

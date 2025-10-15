@@ -1,7 +1,7 @@
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Clock, GitBranch, AlertCircle, User, Link as LinkIcon } from 'lucide-react';
-import type { TicketWithRelations, TicketType, TicketPriority } from '../../shared/types/orchestrator';
+import type { TicketWithRelations, TicketType, TicketPriority } from '../../../shared/types/orchestrator';
 import { cn } from '@/lib/utils';
 
 interface TicketCardProps {

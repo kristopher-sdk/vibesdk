@@ -9,8 +9,8 @@
 CREATE TABLE IF NOT EXISTS orchestration_projects (
     id TEXT PRIMARY KEY,
     
-    -- Relationship to Byte Platform app
-    app_id TEXT NOT NULL REFERENCES apps(id) ON DELETE CASCADE,
+    -- Relationship to Byte Platform app (nullable for GitHub/new projects)
+    app_id TEXT REFERENCES apps(id) ON DELETE CASCADE,
     
     -- Project Identity
     title TEXT NOT NULL,

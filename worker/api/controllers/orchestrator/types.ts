@@ -4,12 +4,7 @@
  */
 
 import { z } from 'zod';
-import {
-    ProjectStatus,
-    TicketStatus,
-    TicketPriority,
-    TicketType,
-} from '../../../../shared/types/orchestrator';
+import { ProjectStatus, ProjectSource } from '../../../../shared/types/orchestrator';
 
 // ========================================
 // ZOD SCHEMAS FOR VALIDATION
@@ -21,6 +16,7 @@ import {
 export const CreateProjectRequestSchema = z.object({
     appId: z.string().uuid('Invalid app ID format'),
     title: z.string().min(1).max(200).optional(),
+    source: z.nativeEnum(ProjectSource),
 });
 
 /**
@@ -104,6 +100,7 @@ export interface CreateProjectData {
         title: string;
         description: string | null;
         status: ProjectStatus;
+        source: ProjectSource;
         createdAt: Date;
     };
     message: string;

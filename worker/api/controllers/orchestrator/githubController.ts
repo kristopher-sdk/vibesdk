@@ -227,7 +227,7 @@ function verifyGitHubSignature(
 /**
  * Handle pull request webhook event
  */
-async function handlePullRequestEvent(c: Context, payload: any) {
+async function handlePullRequestEvent(_c: Context, payload: any) {
     const action = payload.action;
     const prNumber = payload.number;
     const prUrl = payload.pull_request?.html_url;
@@ -253,7 +253,7 @@ async function handlePullRequestEvent(c: Context, payload: any) {
 /**
  * Handle push webhook event
  */
-async function handlePushEvent(c: Context, payload: any) {
+async function handlePushEvent(_c: Context, payload: any) {
     const ref = payload.ref;
     const commits = payload.commits || [];
     
@@ -273,7 +273,7 @@ async function handlePushEvent(c: Context, payload: any) {
 /**
  * Handle pull request review webhook event
  */
-async function handlePullRequestReviewEvent(c: Context, payload: any) {
+async function handlePullRequestReviewEvent(_c: Context, payload: any) {
     const action = payload.action;
     const reviewState = payload.review?.state;
     const prNumber = payload.pull_request?.number;

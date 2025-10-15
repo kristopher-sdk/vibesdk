@@ -23,6 +23,7 @@ import {
     AssignTicketData,
     UpdateProjectData,
 } from './types';
+import type { Project } from '../../../../shared/types/orchestrator';
 
 export class OrchestratorController extends BaseController {
     static logger = createLogger('OrchestratorController');
@@ -68,6 +69,7 @@ export class OrchestratorController extends BaseController {
                     title: project.title,
                     description: project.description,
                     status: project.status,
+                    source: validation.data.source,
                     createdAt: project.createdAt,
                 },
                 message: 'Project created and analysis started',
@@ -85,6 +87,32 @@ export class OrchestratorController extends BaseController {
             OrchestratorController.logger.error('Error creating project:', error);
             const message = error instanceof Error ? error.message : 'Failed to create project';
             return OrchestratorController.createErrorResponse<CreateProjectData>(message, 500);
+        }
+    }
+
+    /**
+     * GET /api/orchestrator/projects
+     * List all projects for the current user
+     */
+    static async listProjects(
+        _request: Request,
+        env: Env,
+        _ctx: ExecutionContext,
+        context: RouteContext
+    ): Promise<ControllerResponse<ApiResponse<{ projects: Project[] }>>> {
+        try {
+            // NOTE: User is optional for testing when auth is disabled
+            const userId = context.user?.id;
+            const service = new OrchestrationService(env);
+            const projects = await service.listProjects(userId);
+
+            return OrchestratorController.createSuccessResponse({ projects });
+        } catch (error) {
+            OrchestratorController.logger.error('Error listing projects:', error);
+            return OrchestratorController.createErrorResponse<{ projects: Project[] }>(
+                'Failed to list projects',
+                500
+            );
         }
     }
 
@@ -206,7 +234,7 @@ export class OrchestratorController extends BaseController {
      */
     static async updateProject(
         request: Request,
-        env: Env,
+        _env: Env,
         _ctx: ExecutionContext,
         context: RouteContext
     ): Promise<ControllerResponse<ApiResponse<UpdateProjectData>>> {

@@ -20,7 +20,6 @@ import {
 } from '../../../shared/types/orchestrator';
 import type {
     Ticket,
-    AffectedFile,
     AcceptanceCriterion,
 } from '../../../shared/types/orchestrator';
 
@@ -49,7 +48,7 @@ export class TicketGeneratorService extends BaseService {
 
     constructor(
         env: Env,
-        private context: InferenceContext
+        context: InferenceContext
     ) {
         super(env);
         this.aiAnalyzer = new AIAnalyzer(env, context, this.logger);
@@ -205,7 +204,7 @@ export class TicketGeneratorService extends BaseService {
     /**
      * Phase 1: Fetch app files from database
      */
-    private async fetchAppFiles(appId: string): Promise<FileInfo[]> {
+    private async fetchAppFiles(_appId: string): Promise<FileInfo[]> {
         // In a real implementation, this would fetch from the app's file storage
         // For now, we'll need to add a query to get app files
         // This is a placeholder - you'll need to implement the actual file fetching
@@ -223,14 +222,14 @@ export class TicketGeneratorService extends BaseService {
     private async createInitialTickets(
         features: Feature[],
         files: FileInfo[],
-        project: typeof schema.orchestrationProjects.$inferSelect
+        _project: typeof schema.orchestrationProjects.$inferSelect
     ): Promise<GeneratedTicket[]> {
         const tickets: GeneratedTicket[] = [];
 
         // Always add setup ticket first
         tickets.push({
             id: generateId(),
-            projectId: project.id,
+            projectId: _project.id,
             title: 'Project Setup and Configuration',
             description: this.generateSetupDescription(files),
             type: 'setup' as TicketType,
@@ -262,7 +261,7 @@ export class TicketGeneratorService extends BaseService {
             
             tickets.push({
                 id: ticketId,
-                projectId: project.id,
+                projectId: _project.id,
                 featureId: feature.id,
                 title: `Implement ${feature.name}`,
                 description: feature.description,
@@ -338,7 +337,7 @@ export class TicketGeneratorService extends BaseService {
      */
     private async finalizeTickets(
         tickets: GeneratedTicket[],
-        files: FileInfo[]
+        _files: FileInfo[]
     ): Promise<GeneratedTicket[]> {
         // For setup ticket and other non-feature tickets, use as-is
         // For feature tickets, optionally enhance with AI
@@ -351,7 +350,7 @@ export class TicketGeneratorService extends BaseService {
      * Phase 9: Save tickets to database
      */
     private async saveTicketsToDatabase(
-        projectId: string,
+        _projectId: string,
         tickets: GeneratedTicket[],
         dependencyAnalysis: Awaited<ReturnType<DependencyGraphBuilder['analyzeDependencies']>>
     ): Promise<void> {
@@ -400,7 +399,7 @@ export class TicketGeneratorService extends BaseService {
      */
     private async generateBasicTickets(
         projectId: string,
-        files: FileInfo[]
+        _files: FileInfo[]
     ): Promise<TicketGenerationResult> {
         this.logger.info('Generating basic tickets without AI');
 

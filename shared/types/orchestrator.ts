@@ -384,11 +384,23 @@ export interface ProjectWithRelations extends Project {
 // ========================================
 
 /**
+ * Project source type
+ */
+export enum ProjectSource {
+    APP = 'app',           // From existing Byte app
+    GITHUB = 'github',     // From GitHub repository
+    NEW = 'new',           // New blank project
+}
+
+/**
  * Create project request
  */
 export interface CreateProjectRequest {
-    appId: string;
+    source: ProjectSource;
+    appId?: string;        // Required for APP source
     title?: string;
+    githubRepoUrl?: string; // Required for GITHUB source
+    description?: string;
 }
 
 /**

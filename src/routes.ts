@@ -50,11 +50,11 @@ const routes = [
 			},
 			{
 				path: 'orchestrator',
-				element: React.createElement(ProtectedRoute, { children: React.createElement(OrchestratorPage) }),
+				Component: OrchestratorPage,
 			},
 			{
 				path: 'orchestrator/projects/:id',
-				element: React.createElement(ProtectedRoute, { children: React.createElement(ProjectDetail) }),
+				Component: ProjectDetail,
 			},
 		],
 	},

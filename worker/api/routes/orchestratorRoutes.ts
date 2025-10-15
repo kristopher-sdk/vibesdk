@@ -11,12 +11,20 @@ import { adaptController } from '../honoAdapter';
 import { AuthConfig, setAuthLevel } from '../../middleware/auth/routeAuth';
 
 export function setupOrchestratorRoutes(app: Hono<AppEnv>): void {
-    // All orchestrator routes require authentication
     const orchestratorRouter = new Hono<AppEnv>();
 
     // ========================================
     // PROJECT ROUTES
     // ========================================
+
+    /**
+     * GET /api/orchestrator/projects
+     * List all projects for the current user
+     */
+    orchestratorRouter.get('/projects',
+        setAuthLevel(AuthConfig.authenticated),
+        adaptController(OrchestratorController, OrchestratorController.listProjects)
+    );
 
     /**
      * POST /api/orchestrator/projects

@@ -9,7 +9,6 @@ import { Octokit } from '@octokit/rest';
 import { createLogger } from '../../logger';
 import type {
     CreateRepositoryResult,
-    GitHubRepository,
 } from '../github/types';
 import type { Project, Ticket } from '../../../shared/types/orchestrator';
 

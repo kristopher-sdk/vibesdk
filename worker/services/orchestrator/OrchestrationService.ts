@@ -6,7 +6,7 @@
 import { BaseService } from '../../database/services/BaseService';
 import * as schema from '../../database/orchestrator-schema';
 import * as mainSchema from '../../database/schema';
-import { eq, and, or, desc, asc, sql, inArray, isNull } from 'drizzle-orm';
+import { eq, and, or, desc, asc, inArray } from 'drizzle-orm';
 import { generateId } from '../../utils/idGenerator';
 import { TicketGeneratorService } from './TicketGeneratorService';
 import { GitHubOrchestratorService } from './GitHubOrchestratorService';
@@ -22,6 +22,7 @@ import type {
     ProjectStatus,
     TicketStatus,
     ActivitySource,
+    ProjectSource,
 } from '../../../shared/types/orchestrator';
 import type { OrchestratorWebSocket } from './OrchestratorWebSocket';
 
@@ -34,24 +35,73 @@ export class OrchestrationService extends BaseService {
     // ========================================
 
     /**
-     * Create a new orchestration project from an app/prototype
+     * Create a new orchestration project from multiple sources
+     * Supports: GitHub repos, saved apps, or new blank projects
      */
     async createProject(data: CreateProjectRequest, userId: string): Promise<Project> {
-        const { appId, title } = data;
+        const { source, appId, title, description, githubRepoUrl } = data;
 
-        // Verify app exists and user has access
-        const app = await this.database
-            .select()
-            .from(mainSchema.apps)
-            .where(eq(mainSchema.apps.id, appId))
-            .get();
+        let projectTitle = title || '';
+        let projectDescription = description || null;
+        let projectAppId = appId || '';
+        let projectGithubUrl = githubRepoUrl || null;
+        let projectGithubRepoName = null;
 
-        if (!app) {
-            throw new Error('App not found');
+        // Handle different project sources
+        switch (source) {
+            case 'app' as ProjectSource:
+                // Verify app exists and user has access
+                if (!appId) {
+                    throw new Error('App ID is required for app source');
+                }
+                
+                const app = await this.database
+                    .select()
+                    .from(mainSchema.apps)
+                    .where(eq(mainSchema.apps.id, appId))
+                    .get();
+
+                if (!app) {
+                    throw new Error('App not found');
+                }
+
+                projectTitle = title || app.title;
+                projectDescription = description || app.description;
+                projectAppId = appId;
+                break;
+
+            case 'github' as ProjectSource:
+                // Validate GitHub URL
+                if (!githubRepoUrl) {
+                    throw new Error('GitHub repository URL is required for GitHub source');
+                }
+
+                // Extract repo name from URL
+                projectGithubUrl = githubRepoUrl;
+                projectGithubRepoName = this.extractRepoName(githubRepoUrl);
+                projectTitle = title || projectGithubRepoName || 'GitHub Project';
+                projectDescription = description || null;
+                
+                // Use a special appId to indicate this is from GitHub
+                projectAppId = `github-${generateId()}`;
+                break;
+
+            case 'new' as ProjectSource:
+                // New blank project
+                if (!title) {
+                    throw new Error('Title is required for new projects');
+                }
+
+                projectTitle = title;
+                projectDescription = description || null;
+                
+                // Use a special appId to indicate this is a new project
+                projectAppId = `new-${generateId()}`;
+                break;
+
+            default:
+                throw new Error(`Unsupported project source: ${source}`);
         }
-
-        // Use app title if not provided
-        const projectTitle = title || app.title;
 
         // Create project
         const projectId = generateId();
@@ -59,15 +109,24 @@ export class OrchestrationService extends BaseService {
             .insert(schema.orchestrationProjects)
             .values({
                 id: projectId,
-                appId,
+                appId: projectAppId,
                 title: projectTitle,
-                description: app.description,
+                description: projectDescription,
                 status: 'analyzing' as ProjectStatus,
                 stakeholderUserId: userId,
+                githubRepoUrl: projectGithubUrl,
+                githubRepoName: projectGithubRepoName,
                 totalTickets: 0,
                 completedTickets: 0,
             })
             .returning();
+
+        this.logger.info('Project created', {
+            projectId,
+            source,
+            title: projectTitle,
+            userId,
+        });
 
         // TODO: Phase 2.3 - Trigger ticket generation algorithm
         // await this.triggerTicketGeneration(projectId);
@@ -142,9 +201,30 @@ export class OrchestrationService extends BaseService {
     }
 
     /**
+     * List all projects for a user
+     */
+    async listProjects(userId?: string): Promise<Project[]> {
+        const conditions = [];
+        
+        if (userId) {
+            conditions.push(eq(schema.orchestrationProjects.stakeholderUserId, userId));
+        }
+        
+        const whereClause = conditions.length > 0 ? and(...conditions) : undefined;
+        
+        const projects = await this.database
+            .select()
+            .from(schema.orchestrationProjects)
+            .where(whereClause)
+            .orderBy(desc(schema.orchestrationProjects.createdAt));
+        
+        return projects.map(p => this.mapProjectFromDb(p));
+    }
+
+    /**
      * Get project with all tickets and dependencies
      */
-    async getProject(projectId: string, includeActivity: boolean = false): Promise<ProjectWithRelations | null> {
+    async getProject(projectId: string, _includeActivity: boolean = false): Promise<ProjectWithRelations | null> {
         const project = await this.database
             .select()
             .from(schema.orchestrationProjects)
@@ -664,19 +744,20 @@ export class OrchestrationService extends BaseService {
 
     /**
      * Notify WebSocket clients of project status change
+     * NOTE: Reserved for future use - will notify via WebSocket when status changes
      */
-    private async notifyProjectStatusChange(
-        projectId: string,
-        oldStatus: ProjectStatus,
-        newStatus: ProjectStatus
-    ): Promise<void> {
-        try {
-            const stub = this.getWebSocketStub();
-            await stub.broadcastProjectStatusChange(projectId, oldStatus, newStatus);
-        } catch (error) {
-            this.logger.error('Failed to send project status notification', { error, projectId });
-        }
-    }
+    // private async _notifyProjectStatusChange(
+    //     projectId: string,
+    //     oldStatus: ProjectStatus,
+    //     newStatus: ProjectStatus
+    // ): Promise<void> {
+    //     try {
+    //         const stub = this.getWebSocketStub();
+    //         await stub.broadcastProjectStatusChange(projectId, oldStatus, newStatus);
+    //     } catch (error) {
+    //         this.logger.error('Failed to send project status notification', { error, projectId });
+    //     }
+    // }
 
     // ========================================
     // GITHUB INTEGRATION METHODS

@@ -5,7 +5,7 @@
 
 import { executeInference } from '../../agents/inferutils/infer';
 import { createUserMessage } from '../../agents/inferutils/common';
-import { InferenceContext, AIModels } from '../../agents/inferutils/config.types';
+import { InferenceContext } from '../../agents/inferutils/config.types';
 import { z } from 'zod';
 import { StructuredLogger } from '../../logger';
 

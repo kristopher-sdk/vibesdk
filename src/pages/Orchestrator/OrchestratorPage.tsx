@@ -5,7 +5,7 @@ import { CreateProjectModal } from './CreateProjectModal';
 import { Button } from '@/components/ui/button';
 import { Plus, Network } from 'lucide-react';
 import { getProjects } from '@/services/orchestratorApi';
-import type { Project } from '../../shared/types/orchestrator';
+import type { Project } from '../../../shared/types/orchestrator';
 import { motion } from 'framer-motion';
 
 export default function OrchestratorPage() {

@@ -15,22 +15,6 @@ import type {
 
 const API_BASE = '/api/orchestrator';
 
-interface ApiResponse<T> {
-  success: boolean;
-  data: T;
-  error?: string;
-}
-
-interface PaginatedResponse<T> {
-  items: T[];
-  pagination: {
-    limit: number;
-    offset: number;
-    total: number;
-    hasMore: boolean;
-  };
-}
-
 /**
  * Get authorization header with JWT token
  */
@@ -55,16 +39,15 @@ async function handleResponse<T>(response: Response): Promise<T> {
 }
 
 /**
- * Create a new project from an existing app/prototype
+ * Create a new project (from app, GitHub repo, or blank)
  */
 export async function createProject(
-  appId: string,
-  title?: string
+  request: CreateProjectRequest
 ): Promise<{ project: Project; message: string }> {
   const response = await fetch(`${API_BASE}/projects`, {
     method: 'POST',
     headers: getAuthHeaders(),
-    body: JSON.stringify({ appId, title } as CreateProjectRequest),
+    body: JSON.stringify(request),
   });
   return handleResponse(response);
 }
